@@ -8,11 +8,34 @@
     tools:context="ifsp.spaceinvaders.AddRankActivity"
     android:weightSum="1">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.31"
+            app:srcCompat="@drawable/bexiga" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="41dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300px"
+            app:srcCompat="@drawable/bexiga2"
+            android:layout_weight="0.41" />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/txtMsg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200px"
+        android:layout_marginTop="30px"
         android:text="PARABENS!"
         android:textAlignment="center"
         android:textSize="24dp"
@@ -64,7 +87,7 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="50dp"
             android:text="Salvar" />
 
         <Button
@@ -73,7 +96,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="50dp"
             android:text="SAIR" />
 
     </LinearLayout>
