@@ -1,12 +1,13 @@
 package ifsp.spaceinvaders;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -43,7 +44,7 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
     private AlienSquad alienSquad;
     private SensorManager sensorManager;
     private SoundPool soundPool;
-    private int SHOT_SOUND;
+    private int SHOT_SOUND, pontos = 0;
 
     private int frames = 0;
     private final int FRAMES_TO_ALIEN_SHOOT = 100;
@@ -63,6 +64,7 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
             {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
 
+                    pontos -=2;
                     Projectile projectile = new Projectile(context, (hero.getXPos() + (hero.getWidth()/2)), hero.getYPos(), false);
                    //if (projectiles.size() <= 1)
                     {
@@ -111,6 +113,11 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
             alienSquad.move();
             alienSquad.draw(canvas);
 
+            Paint white = new Paint();
+            white.setColor(Color.WHITE);
+            white.setTextSize(50);
+            canvas.drawText(("Pts: "+pontos), 20, screen.getHeight() - 50, white);
+
             Projectile projectile;
             Iterator<Projectile> iterator = new ArrayList<Projectile>(projectiles).iterator();
             while (iterator.hasNext()) {
@@ -123,7 +130,9 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
 
                         iterator.remove();
                         projectiles.remove(projectile);
+
                     } else {
+
                         //Verifica se atingiu algum alien
                         Alien alien;
                         List<Alien> toRemove = new ArrayList<>();
@@ -133,7 +142,7 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
                             if (alien.strike(projectile)) {
                                 alienIterator.remove();
                                 //alienSquad.getAliens().remove(alien);
-
+                                pontos+=10;
                                 iterator.remove();
                                 projectiles.remove(projectile);
                             }
@@ -159,29 +168,21 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
                         alienIterator.remove();
                         alienProjectiles.remove(alienProjectile);
                     } else {
-                        //Verifica se atingiu o Hero
 
+                        //Verifica se atingiu o Hero
                         if (hero.strike(alienProjectile)) {
 
                             // PERDEU
                             this.running = false;
                             ((Activity) getContext()).runOnUiThread(new Runnable() {
                                 public void run() {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                    builder.setMessage("GAME OVER, você foi derrotado")
-                                            .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int id) {
-                                                    ((Activity) getContext()).recreate();
-                                                    running = true;
-                                                }
-                                            })
-                                            .setNegativeButton("Sair", new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int id) {
-                                                    stop();
-                                                    ((Activity) getContext()).finish();
-                                                }
-                                            });
-                                    builder.create().show();
+
+                                    Intent it = new Intent(getContext(),AddRankActivity.class);
+                                    it.putExtra("ganhou",false);
+                                    it.putExtra("pontos",pontos);
+                                    ((Activity) getContext()).finish();
+                                    getContext().startActivity(it);
+
                                 }
                             });
 
@@ -201,25 +202,16 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
                 this.running = false;
                 ((Activity) getContext()).runOnUiThread(new Runnable() {
                     public void run() {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder.setMessage("Parabéns, você derrotou a frota alienígena !!")
-                                .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        ((Activity) getContext()).recreate();
-                                        running = true;
-                                    }
-                                })
-                                .setNegativeButton("Sair", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        stop();
-                                        ((Activity) getContext()).finish();
-                                    }
-                                });
-                        builder.create().show();
+
+                        Intent it = new Intent(getContext(),AddRankActivity.class);
+                        it.putExtra("ganhou",false);
+                        it.putExtra("pontos",pontos);
+                        ((Activity) getContext()).finish();
+                        getContext().startActivity(it);
+
                     }
                 });
             }
-
 
             // Alien atira
             frames++;

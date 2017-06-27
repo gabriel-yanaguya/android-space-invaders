@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ifsp.spaceinvaders.AddRankActivity"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/txtMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200px"
+        android:text="PARABENS!"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtPontuacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80px"
+        android:text="PONTUAÇÃO"
+        android:textAlignment="center"
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/txtPontos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="5000"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtNome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140px"
+        android:paddingBottom="10dp"
+        android:text="Informe seu nome:"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/edtNome"
+        android:layout_marginLeft="130px"
+        android:layout_width="261dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnSalvar"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="70dp"
+            android:text="Salvar" />
+
+        <Button
+            android:id="@+id/btnSair"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="70dp"
+            android:text="SAIR" />
+
+    </LinearLayout>
+
+</LinearLayout>
